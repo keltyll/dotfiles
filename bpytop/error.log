@@ -1,0 +1,41 @@
+24/08/21 (23:51:48) | ERROR: Exception when sending signal 9 to pid 201884
+24/08/21 (23:51:48) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
+24/08/21 (23:51:57) | ERROR: Exception when sending signal 9 to pid 201884
+24/08/21 (23:51:57) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
+24/08/21 (23:52:00) | ERROR: Exception when sending signal 9 to pid 201884
+24/08/21 (23:52:00) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
+24/08/21 (23:52:01) | ERROR: Exception when sending signal 15 to pid 201884
+24/08/21 (23:52:01) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
+22/09/21 (00:06:42) | ERROR: Input thread failed with exception: [Errno 5] Input/output error
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 937, in _get_key
+    input_key += sys.stdin.read(1)						#* Read 1 key safely with blocking on
+OSError: [Errno 5] Input/output error
+19/11/21 (13:39:34) | ERROR: Exception when sending signal 9 to pid 5647
+19/11/21 (13:39:34) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
+19/11/21 (13:39:35) | ERROR: Exception when sending signal 15 to pid 5647
+19/11/21 (13:39:35) | ERROR: [Errno 1] Operation not permitted
+Traceback (most recent call last):
+  File "/usr/bin/bpytop", line 5459, in process_keys
+    os.kill(pid, sig)
+PermissionError: [Errno 1] Operation not permitted
