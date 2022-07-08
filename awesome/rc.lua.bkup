@@ -197,6 +197,8 @@ awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
     awful.tag({ " I |", "| II |", "| III |", "| IV |", "| V |", "| VI |", "| VII |", "| VIII |", " IX ",}, s, awful.layout.layouts[1])
 --    awful.tag({ " ᛟ |", "| ᛃ |", "| ᛉ |", "| ᚥ |", "| ᛈ |", "| ᛯ |", "| ᚯ |", "| ᛵ |", " ᛝ ",}, s, awful.layout.layouts[1])
+--    awful.tag({ " 一|", "|二|", "|三|", "|四|", "|五|", "|六|", "|七|", "|八|", "九 ",}, s, awful.layout.layouts[1])
+
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -599,7 +601,7 @@ beautiful.useless_gap = 7
 awful.spawn.with_shell("nitrogen --set-scaled --restore")
 awful.spawn.with_shell("numlockx on")
 awful.spawn.with_shell("xfce4-power-manager")
-awful.spawn.with_shell("picom")
+-- awful.spawn.with_shell("picom")
 -- awful.spawn.with_shell("picom --experimental-backends")
 -- awful.spawn.with_shell("volnoti")
 awful.spawn.with_shell("xfce4-clipman")
