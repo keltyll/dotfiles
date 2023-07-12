@@ -15,6 +15,9 @@
   boot.loader.grub.device = "/dev/sdd";
   boot.loader.grub.useOSProber = true;
 
+  # Linux Kernel
+  #boot.kernelPackages = pkgs.linuxPackages_6_4;
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -84,10 +87,9 @@
   users.users.pagan = {
     isNormalUser = true;
     description = "pagan";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "video" "lp" "scanner" ];
     packages = with pkgs; [
       firefox
-    #  thunderbird
     ];
   };
 
@@ -98,6 +100,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  vimPlugins.nvchad
   wget
   anki-bin
   alacritty
@@ -106,7 +109,6 @@
   audacity
   bat
   borgbackup
-  cascadia-code
   dexed
   deja-dup
   discord
@@ -114,10 +116,11 @@
   dragonfly-reverb
   du-dust
   epson-201401w
+  epson_201207w
   pfetch
   starship
-  brave
   celluloid
+  foliate
   flameshot
   flatpak
   galculator
@@ -129,13 +132,16 @@
   git
   gnome.simple-scan
   gparted
+  handbrake
   heroic
+  home-manager
   htop
   i3 i3lock i3status
   inkscape-with-extensions
   lsd
-  lsp-plugins
+  #lsp-plugins
   lutris
+  lxappearance
   mpv
   ncdu
   nfs-utils
@@ -154,11 +160,9 @@
   rofi
   rustdesk
   simple-mtpfs
-  #steam
-  #steam-run
+  standardnotes
   stremio
   telegram-desktop
-  terminus-nerdfont
   thunderbird
   tldr
   trash-cli
@@ -167,7 +171,6 @@
   virt-manager
   vscodium
   vorta
-  xed-editor
   xfce.xfce4-pulseaudio-plugin
   xfce.xfce4-volumed-pulse
   xfce.xfce4-whiskermenu-plugin
@@ -176,6 +179,15 @@
   xfce.xfce4-cpugraph-plugin
   yabridge
   yabridgectl
+  ];
+
+  # fonts
+  fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [
+    nerdfonts
+    cascadia-code
+    font-awesome
+    google-fonts
   ];
 
   # alias
@@ -235,6 +247,6 @@ environment.interactiveShellInit = ''
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # appimage-run
-  environment.systemPackages = [ pkgs.appimage-run ];
+  # environment.systemPackages = [ pkgs.appimage-run ];
 
 }
