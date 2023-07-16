@@ -11,9 +11,20 @@
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sdd";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sdd";
+    useOSProber = true;
+  };
+
+
+  # Fix USB sticks not mounting or being listed:
+  services.devmon.enable = true;
+  services.udisks2.enable = true;
+  services.gvfs.enable = true;
+
+  # Enable 32-bit DRI support for OpenGL
+  hardware.opengl.driSupport32Bit = true;
 
   # Linux Kernel
   #boot.kernelPackages = pkgs.linuxPackages_6_4;
@@ -32,7 +43,10 @@
   time.timeZone = "Europe/Warsaw";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+  #  supportedLocales = [ "fr_FR.UTF-8" "pl_PL.UTF-8" "ru_RU.UTF-8" ];
+    };
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "pl_PL.UTF-8";
@@ -62,6 +76,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.epson-escpr ];
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -80,9 +95,6 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pagan = {
     isNormalUser = true;
@@ -100,8 +112,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  vimPlugins.nvchad
   wget
+  appimage-run
   anki-bin
   alacritty
   arc-theme
@@ -109,28 +121,27 @@
   audacity
   bat
   borgbackup
+  cava
   dexed
   deja-dup
   discord
   distrobox
   dragonfly-reverb
   du-dust
-  epson-201401w
-  epson_201207w
   pfetch
   starship
   celluloid
   foliate
-  flameshot
+ #flameshot
   flatpak
   galculator
   gcc
-  gh
   gimp
   gimpPlugins.gmic
   #gimpPlugins.resynthesizer
   git
   gnome.simple-scan
+  gnome.gnome-disk-utility
   gparted
   handbrake
   heroic
@@ -138,6 +149,7 @@
   htop
   i3 i3lock i3status
   inkscape-with-extensions
+  killall
   lsd
   #lsp-plugins
   lutris
@@ -149,7 +161,7 @@
   papirus-icon-theme
   pavucontrol
   podman
-  popcorntime
+  epson-escpr # For printer Epson L3156
   protonup-ng
   python3Full
   qdirstat
@@ -161,34 +173,39 @@
   rustdesk
   simple-mtpfs
   standardnotes
+  steam
+  steam-run
   stremio
   telegram-desktop
   thunderbird
   tldr
   trash-cli
+  zip
   unzip
   veracrypt
   virt-manager
-  vscodium
   vorta
+  xdg-utils
   xfce.xfce4-pulseaudio-plugin
   xfce.xfce4-volumed-pulse
   xfce.xfce4-whiskermenu-plugin
   xfce.xfce4-clipman-plugin
   xfce.xfce4-weather-plugin
   xfce.xfce4-cpugraph-plugin
+  xfce.xfce4-xkb-plugin
   yabridge
   yabridgectl
+  zathura
   ];
 
   # fonts
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
-    nerdfonts
-    cascadia-code
-    font-awesome
-    google-fonts
-  ];
+  #fonts.fontDir.enable = true;
+  #fonts.fonts = with pkgs; [
+  #  nerdfonts
+  #  cascadia-code
+  #  font-awesome
+  #  google-fonts
+  #];
 
   # alias
 environment.interactiveShellInit = ''
@@ -234,11 +251,14 @@ environment.interactiveShellInit = ''
   system.stateVersion = "23.05"; # Did you read the comment?
 
   # Automatic Garbage Collection
-    nix.gc = {
-		automatic = true;
-		dates = "weekly";
-		options = "--delete-older-than 7d";
-	};
+  #  nix = {
+  #    settings.auto-optimise-store = true;
+  #    gc = {
+  #		automatic = true;
+  #		dates = "weekly";
+  #		options = "--delete-older-than 7d";
+  #	};
+  #  };
 
   # flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -246,7 +266,18 @@ environment.interactiveShellInit = ''
   # Nvidia drivers
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # appimage-run
-  # environment.systemPackages = [ pkgs.appimage-run ];
+  # Podman/Docker registries:
+
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # docker alias for podman
+      dockerCompat = true;
+
+      # Required for contqiners under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+      };
+    };
 
 }
