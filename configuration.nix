@@ -117,13 +117,13 @@
   anki-bin
   alacritty
   arc-theme
-  aria
+  #aria
   audacity
   bat
+  bottles
   borgbackup
-  cava
+  #deja-dup
   dexed
-  deja-dup
   discord
   distrobox
   dragonfly-reverb
@@ -134,20 +134,22 @@
   foliate
  #flameshot
   flatpak
+  feh
   galculator
   gcc
-  gimp
-  gimpPlugins.gmic
+  #gimp
+  #gimpPlugins.gmic
   #gimpPlugins.resynthesizer
   git
+  glava
   gnome.simple-scan
   gnome.gnome-disk-utility
-  gparted
-  handbrake
+  #gparted
+  #handbrake
   heroic
-  home-manager
+  #home-manager
   htop
-  i3 i3lock i3status
+  i3 i3lock i3status autotiling
   inkscape-with-extensions
   killall
   lsd
@@ -161,13 +163,14 @@
   papirus-icon-theme
   pavucontrol
   podman
+  pulseaudio
   epson-escpr # For printer Epson L3156
-  protonup-ng
+  #protonup-ng
   python3Full
-  qdirstat
+  # qdirstat
   qbittorrent
   qemu
-  redshift
+  #redshift
   ripgrep
   rofi
   rustdesk
@@ -199,13 +202,13 @@
   ];
 
   # fonts
-  #fonts.fontDir.enable = true;
-  #fonts.fonts = with pkgs; [
-  #  nerdfonts
-  #  cascadia-code
-  #  font-awesome
+  fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [
+    nerdfonts
+    cascadia-code
+    font-awesome
   #  google-fonts
-  #];
+  ];
 
   # alias
 environment.interactiveShellInit = ''
@@ -240,7 +243,8 @@ environment.interactiveShellInit = ''
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
+  networking.enableIPv6 = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -267,7 +271,6 @@ environment.interactiveShellInit = ''
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # Podman/Docker registries:
-
   virtualisation = {
     podman = {
       enable = true;
@@ -279,5 +282,14 @@ environment.interactiveShellInit = ''
       defaultNetwork.settings.dns_enabled = true;
       };
     };
+
+services.xserver.extraConfig = ''
+  Section "InputClass"
+    Identifier "keyboard-all"
+    MatchIsKeyboard "on"
+    Option "AutoRepeat" "300 80"
+  EndSection
+'';
+
 
 }
