@@ -23,10 +23,15 @@
     fsType = "ext4";
   };  
 
-#  fileSystems."/mnt/western_digital" = {
-#    device = "/dev/disk/by-uuid/5b3b14dd-efa8-4d1e-98fb-e3401b4ed264";
-#    fsType = "ext4";
-#  };
+  fileSystems."/mnt/lexar_2tb" = {
+    device = "/dev/disk/by-uuid/8208f463-50df-46e8-86e6-cf979f06c350";
+    fsType = "ext4";
+  };
+
+  fileSystems."/mnt/ntfs_370G" = {
+    device = "/dev/disk/by-uuid/536CF6A7517F0562";
+    fsType = "ntfs";
+  };
 
   swapDevices = [ ];
 
