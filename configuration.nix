@@ -14,6 +14,7 @@
   boot.loader.grub = {
     enable = true;
     device = "/dev/sdd";
+    timeout = 45;
     useOSProber = true;
   };
 
@@ -28,6 +29,7 @@
 
   # Linux Kernel
   #boot.kernelPackages = pkgs.linuxPackages_6_4;
+  #boot.kernelPackages = pkgs.linuxPackages_lqx;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -64,15 +66,20 @@
   services.xserver.enable = true;
 
   # Enable the XFCE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
+  #services.xserver.displayManager.lightdm.enable = true;
+  #services.xserver.desktopManager.xfce.enable = true;
   services.xserver.windowManager.i3.enable = true;
 
-  # Configure keymap in X11
+  # languages layout
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+    layout = "us,pl,fr";
+    };
+
+  # Configure keymap in X11
+  #services.xserver = {
+  #  layout = "us";
+  #  xkbVariant = "";
+  #};
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -107,6 +114,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnsupportedSystem = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -115,6 +123,7 @@
   wget
   appimage-run
   anki-bin
+  anydesk
   alacritty
   arc-theme
   #aria
@@ -123,16 +132,20 @@
   bottles
   borgbackup
   #deja-dup
+  cmatrix
   dexed
   discord
   distrobox
   dragonfly-reverb
   du-dust
+  dunst
   pfetch
   starship
-  celluloid
+  #celluloid
+  ffmpeg
   foliate
- #flameshot
+  #flameshot
+  gnome.file-roller
   flatpak
   feh
   galculator
@@ -146,32 +159,38 @@
   gnome.gnome-disk-utility
   #gparted
   #handbrake
-  heroic
+  #heroic
   #home-manager
   htop
-  i3 i3lock i3status autotiling
-  inkscape-with-extensions
+  i3 i3lock i3status 
+  #inkscape-with-extensions
   killall
+  libreoffice
   lsd
   #lsp-plugins
-  lutris
+  #lutris
   lxappearance
   mpv
+  newsboat
   ncdu
+  ntfs3g
   nfs-utils
   openssl
   papirus-icon-theme
   pavucontrol
+  popcorntime
   podman
   pulseaudio
   epson-escpr # For printer Epson L3156
   #protonup-ng
+  #protonvpn-gui
   python3Full
-  # qdirstat
+  #qdirstat
   qbittorrent
   qemu
   #redshift
   ripgrep
+  rmlint
   rofi
   rustdesk
   simple-mtpfs
@@ -188,14 +207,21 @@
   veracrypt
   virt-manager
   vorta
+  wine-staging
   xdg-utils
+  xfce.xfce4-power-manager
   xfce.xfce4-pulseaudio-plugin
   xfce.xfce4-volumed-pulse
-  xfce.xfce4-whiskermenu-plugin
+  #xfce.xfce4-whiskermenu-plugin
   xfce.xfce4-clipman-plugin
   xfce.xfce4-weather-plugin
-  xfce.xfce4-cpugraph-plugin
+  #xfce.xfce4-cpugraph-plugin
   xfce.xfce4-xkb-plugin
+  xfce.xfce4-screenshooter
+  xfce.mousepad
+  xfce.thunar
+  xfce.ristretto
+  xfce.tumbler
   yabridge
   yabridgectl
   zathura
