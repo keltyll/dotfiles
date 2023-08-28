@@ -1,8 +1,9 @@
 
-from libqtile import bar, layout, widget
+from libqtile import bar, layout, hook, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+import subprocess
 
 mod = "mod1"
 terminal = "alacritty"
@@ -42,11 +43,18 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("thunar"), desc="Launch Thunar"),
     # Toggle between different layouts as defined below
-    Key([mod], "f", lazy.next_layout(), desc="Toggle between layouts"),
+    Key([mod], "tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "x", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod], "d", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
+    Key([mod], "p", lazy.spawn("rofi -show drun"), desc="Launch Rofi"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
+    Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
+    Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
+    #Key(["mod1"], "g", lazy.layout.toggle_gaps()),
+    Key(["mod1"], "f", lazy.window.toggle_fullscreen()),
 ]
 
 # Changing the names of the workspaces
@@ -98,14 +106,21 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 #        ]
 #    )
 
+layout_theme = {
+        "border_width": 3,
+        "margin": 15,
+        "border_focus": "064785",
+        "border_normal": "#00000000"
+        }
+
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=1),
-    layout.Max(),
+    #layout.Columns(border_focus_stack=["#000000", "#053C71"], border_width=1, margin=6, border_on_single=True,),
+    #layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
     # layout.Matrix(),
-    # layout.MonadTall(),
+    layout.MonadTall(**layout_theme),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.Tile(),
@@ -125,6 +140,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
+
                 #widget.CurrentLayout(),
                 widget.Sep(
                     linewidth = 0,
@@ -135,7 +151,7 @@ screens = [
                 widget.WindowName(),
                 widget.Chord(
                     chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
+                        "launch": ("#0A78E3", "#053C71"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
@@ -164,6 +180,8 @@ screens = [
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
             # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
+        wallpaper='/home/pagan/Pictures/wallpapers/Cthulhu_04.jpg',
+        wallpaper_mode='fill'
     ),
 ]
 
