@@ -4,36 +4,35 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import subprocess
+import os
 
 mod = "mod1"
 terminal = "alacritty"
 
+# define function to toggle margin
+def toggle_margin(qtile):
+    current_group = qtile.current_group
+    for layout in current_group.layouts:
+        if layout.margin == 6:
+            layout.margin = 0
+        else:
+            layout.margin = 6
+
 keys = [
-    # A list of available commands that can be bound to keys can be found
-    # at https://docs.qtile.org/en/latest/manual/config/lazy.html
-    # Switch between windows
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
     Key(
         [mod, "shift"],
         "Return",
@@ -42,7 +41,6 @@ keys = [
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("thunar"), desc="Launch Thunar"),
-    # Toggle between different layouts as defined below
     Key([mod], "tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "x", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
@@ -53,8 +51,8 @@ keys = [
     Key([], "XF86AudioRaiseVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ +5%")),
     Key([], "XF86AudioLowerVolume", lazy.spawn("pactl set-sink-volume @DEFAULT_SINK@ -5%")),
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
-    #Key(["mod1"], "g", lazy.layout.toggle_gaps()),
     Key(["mod1"], "f", lazy.window.toggle_fullscreen()),
+    Key(["mod1"], "g", lazy.function(toggle_margin)),
 ]
 
 # Changing the names of the workspaces
@@ -106,9 +104,21 @@ for i, (name, kwargs) in enumerate(group_names, 1):
 #        ]
 #    )
 
+#Keyboard speed
+@hook.subscribe.startup
+def autostart():
+    os.system("xset r rate 345 80")
+if __name__ in ["config", "__main__"]:
+    group_names = init_group_names()
+    groups = init_groups()
+@hook.subscribe.startup
+def start_once():
+    qtile.cmd_restart()
+
+#Layouts
 layout_theme = {
         "border_width": 3,
-        "margin": 15,
+        "margin": 6,
         "border_focus": "064785",
         "border_normal": "#00000000"
         }
