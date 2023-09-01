@@ -28,7 +28,7 @@ format = "[$path](bold cyan) > "
 [time]
 disabled = false
 #format = "[$time](bold yellow) "
-format = "[ $time](bold yellow) > "
+format = "[ $time](bold yellow) "
 
 
 # Configure programming language versions
