@@ -1,0 +1,101 @@
+# ~/.config/starship.toml
+
+# Define the root format to arrange the modules
+format = "[$username$directory$time$character$cmd_duration$all]($default_style) "
+
+# Use a single-line prompt
+add_newline = false
+
+# Set the prompt character (this will appear at the end)
+[character]
+success_symbol = "[>](bold blue)"
+error_symbol = "[>](bold red)"
+
+# Display the username
+[username]
+show_always = true
+format = "[$user](bold green) > "
+disabled = false
+
+# Configure the directory module for current path
+[directory]
+truncation_length = 1000  # No truncation
+truncate_to_repo = false
+#home_symbol = "/home/your_username_here"  # replace with your home directory path
+format = "[$path](bold cyan) > "
+
+# Display the current time
+[time]
+disabled = false
+#format = "[$time](bold yellow) "
+format = "[ $time](bold yellow) > "
+
+
+# Configure programming language versions
+[rust]
+symbol = "🦀 "
+
+[python]
+symbol = "🐍 "
+
+[nodejs]
+symbol = "🟩 "
+
+[java]
+symbol = "☕ "
+
+[php]
+symbol = "🐘 "
+
+[ruby]
+symbol = "💎 "
+
+[elixir]
+symbol = "💧 "
+
+[scala]
+symbol = "🔺 "
+
+[haskell]
+symbol = "λ "
+
+[kotlin]
+symbol = "⚪ "
+
+[swift]
+symbol = "🐦 "
+
+[dart]
+symbol = "🎯 "
+
+[perl]
+symbol = "🐪 "
+
+[erlang]
+symbol = "🔴 "
+
+[elm]
+symbol = "🌳 "
+
+# And many more... You can continue to add more symbols for other languages
+
+# Configure the package version (Node.js, Python, etc.)
+[package]
+disabled = true
+
+# Configure the battery module
+[battery]
+disabled = true
+
+# Show git status
+[git_status]
+disabled = true
+
+# Show git branch and commit info
+[git_branch]
+disabled = true
+
+# Show the duration of the last command if it took more than 2 seconds
+[cmd_duration]
+min_time = 2  # Minimum number of seconds for showing the time
+format = "[⏱ $duration](bold magenta) > "
