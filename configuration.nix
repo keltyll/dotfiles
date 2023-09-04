@@ -69,6 +69,7 @@
   #services.xserver.displayManager.lightdm.enable = true;
   #services.xserver.desktopManager.xfce.enable = true;
   services.xserver.windowManager.i3.enable = true;
+  services.xserver.windowManager.qtile.enable = true;
 
   # languages layout
   services.xserver = {
@@ -131,8 +132,8 @@
   bat
   bottles
   borgbackup
-  #deja-dup
-  cmatrix
+  caffeine-ng
+  cryptsetup
   dexed
   discord
   distrobox
@@ -141,13 +142,13 @@
   dunst
   pfetch
   starship
-  #celluloid
   ffmpeg
   foliate
   #flameshot
   gnome.file-roller
   flatpak
   feh
+  fuseiso
   galculator
   gcc
   #gimp
@@ -172,6 +173,8 @@
   lxappearance
   mpv
   newsboat
+  networkmanagerapplet
+  openvpn
   ncdu
   ntfs3g
   nfs-utils
@@ -188,7 +191,6 @@
   #qdirstat
   qbittorrent
   qemu
-  #redshift
   ripgrep
   rmlint
   rofi
@@ -212,14 +214,13 @@
   xfce.xfce4-power-manager
   xfce.xfce4-pulseaudio-plugin
   xfce.xfce4-volumed-pulse
-  #xfce.xfce4-whiskermenu-plugin
   xfce.xfce4-clipman-plugin
   xfce.xfce4-weather-plugin
-  #xfce.xfce4-cpugraph-plugin
   xfce.xfce4-xkb-plugin
   xfce.xfce4-screenshooter
   xfce.mousepad
   xfce.thunar
+  xfce.thunar-archive-plugin
   xfce.ristretto
   xfce.tumbler
   yabridge
@@ -233,8 +234,14 @@
     nerdfonts
     cascadia-code
     font-awesome
+    garamond-libre
   #  google-fonts
   ];
+
+  # default programs
+  environment.variables = {
+    XDG_IMAGE_VIEWER = "ristretto";
+    };
 
   # alias
 environment.interactiveShellInit = ''
@@ -316,6 +323,5 @@ services.xserver.extraConfig = ''
     Option "AutoRepeat" "300 80"
   EndSection
 '';
-
 
 }
