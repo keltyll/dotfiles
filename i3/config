@@ -208,10 +208,11 @@ bindsym $mod+Shift+Delete exec "i3lock --color=000000"
 bindsym $mod+b bar mode toggle
 bindsym Print exec "xfce4-screenshooter"
 
-exec --no-startup-id autotiling
+#exec --no-startup-id autotiling
 exec --no-startup-id vorta
 exec --no-startup-id xfce4-clipman
-exec --no-startup-id xfce4-power-manager
+exec --no-startup-id caffeine
+#exec --no-startup-id xfce4-power-manager
 exec --no-startup-id nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
 
 #exec --no-startup-id xfce4-panel --disable-wm-check
