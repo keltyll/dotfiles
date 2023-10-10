@@ -42,7 +42,7 @@ keys = [
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     Key([mod, "shift"], "Return", lazy.spawn("thunar"), desc="Launch Thunar"),
     Key([mod], "tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "x", lazy.window.kill(), desc="Kill focused window"),
+    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
@@ -53,19 +53,20 @@ keys = [
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle")),
     Key(["mod1"], "f", lazy.window.toggle_fullscreen()),
     Key(["mod1"], "g", lazy.function(toggle_margin)),
+    Key([mod, "shift"], "Delete", lazy.spawn("i3lock -c 000000")),
 ]
 
 # Changing the names of the workspaces
 def init_group_names():
-    return [("I", {'layout': 'Columns'}),
-             ("II", {'layout': 'Columns'}),
-             ("III", {'layout': 'Columns'}),
-             ("IV", {'layout': 'Columns'}),
-             ("V", {'layout': 'Columns'}),
-             ("VI", {'layout': 'Columns'}),
-             ("VII", {'layout': 'Columns'}),
-             ("VIII", {'layout': 'Columns'}),
-             ("IX", {'layout': 'Columns'})]
+    return [("ᚠ", {'layout': 'Columns'}),
+             ("ᚢ", {'layout': 'Columns'}),
+             ("ᚦ", {'layout': 'Columns'}),
+             ("ᚨ", {'layout': 'Columns'}),
+             ("ᚱ", {'layout': 'Columns'}),
+             ("ᚾ", {'layout': 'Columns'}),
+             ("ᚷ", {'layout': 'Columns'}),
+             ("ᚹ", {'layout': 'Columns'}),
+             ("ᚺ", {'layout': 'Columns'})]
 
 def init_groups():
     return [Group(name, **kwargs) for name, kwargs in group_names]
@@ -115,10 +116,17 @@ if __name__ in ["config", "__main__"]:
 def start_once():
     qtile.cmd_restart()
 
+#Autostart programs
+@hook.subscribe.startup_once
+def autostart():
+    os.system('xfce4-power-manager &')
+    os.system('vorta &')
+    os.system('xfce4-clipman &')
+
 #Layouts
 layout_theme = {
         "border_width": 3,
-        "margin": 6,
+        "margin": 0,
         "border_focus": "064785",
         "border_normal": "#00000000"
         }
@@ -141,7 +149,7 @@ layouts = [
 
 widget_defaults = dict(
     font="sans",
-    fontsize=12,
+    fontsize=14,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
@@ -169,8 +177,8 @@ screens = [
                 widget.TextBox(text='|',),
                 widget.TextBox(text='VOL:',),
                 widget.Volume(),
-                widget.TextBox(text='|',),
-                widget.KeyboardKbdd(),
+                #widget.TextBox(text='|',),
+                #widget.KeyboardKbdd(),
                 widget.TextBox(text='|',),
                 widget.Memory(),
                 widget.TextBox(text='| CPU:',),
@@ -178,7 +186,7 @@ screens = [
                 #widget.Net(interface="enp1s0"),
                 #widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 # NB Systray is incompatible with Wayland, consider using StatusNotifier instead
-                widget.StatusNotifier(),
+                #widget.StatusNotifier(),
                 widget.Clock(format="| %A %d-%m-%Y | %H:%M:%S"),
                 widget.Sep(
                     linewidth = 0,
@@ -197,7 +205,7 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+        # Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front()),
 ]
